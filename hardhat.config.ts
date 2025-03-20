@@ -52,7 +52,12 @@ const loadPrivateKeyFromKeyfile = () => {
     }
   }
 
-  const prodNetworks = new Set<number>([networkInfos.mainnet.id, networkInfos.arbitrum.id, networkInfos.base.id])
+  const prodNetworks = new Set<number>([
+    networkInfos.mainnet.id,
+    networkInfos.arbitrum.id,
+    networkInfos.base.id,
+    networkInfos.berachain.id,
+  ])
   if (network && prodNetworks.has(network)) {
     if (privateKey) {
       return privateKey
@@ -118,6 +123,20 @@ const config: HardhatConfig = {
       live: true,
       saveDeployments: true,
       tags: ['testnet', 'test'],
+      companionNetworks: {},
+    },
+    [networkInfos.berachain.id]: {
+      url: networkInfos.berachain.rpcUrls.default.http[0],
+      chainId: networkInfos.berachain.id,
+      accounts: [loadPrivateKeyFromKeyfile()],
+      gas: 'auto',
+      gasPrice: 'auto',
+      gasMultiplier: 1,
+      timeout: 3000000,
+      httpHeaders: {},
+      live: true,
+      saveDeployments: true,
+      tags: ['mainnet', 'prod'],
       companionNetworks: {},
     },
     [networkInfos.arbitrumSepolia.id]: {
@@ -232,6 +251,7 @@ const config: HardhatConfig = {
       sepolia: process.env.ARBISCAN_API_KEY ?? '',
       arbitrumSepolia: process.env.ARBISCAN_API_KEY ?? '',
       [networkInfos.berachainTestnetbArtio.id]: 'verifyContract',
+      [networkInfos.berachain.id]: process.env.EXPLORER_API_KEY!,
     },
     customChains: [
       {
@@ -240,6 +260,14 @@ const config: HardhatConfig = {
         urls: {
           apiURL: 'https://api.routescan.io/v2/network/testnet/evm/80084/etherscan/',
           browserURL: 'https://bartio.beratrail.io',
+        },
+      },
+      {
+        network: networkInfos.berachain.id.toString(),
+        chainId: networkInfos.berachain.id,
+        urls: {
+          apiURL: 'https://api.berascan.com/api',
+          browserURL: 'https://berascan.com/',
         },
       },
     ],

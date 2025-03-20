@@ -38,12 +38,14 @@
     "hardhat": "^2.22.18",
     "hardhat-abi-exporter": "^2.10.1",
     "hardhat-contract-sizer": "^2.10.0",
-    "hardhat-deploy": "^0.14.0",
+    "hardhat-deploy": "^1.0.1",
     "hardhat-gas-reporter": "^2.2.2",
     "keythereum": "^2.0.0",
     "prettier": "^3.3.3",
     "readline-sync": "^1.4.10",
     "solidity-docgen": "^0.6.0-beta.36",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2",
     "viem": "2.23.2"
   }
 }
