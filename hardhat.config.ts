@@ -97,7 +97,7 @@ const config: HardhatConfig = {
   },
   defaultNetwork: 'hardhat',
   networks: {
-    sepolia: {
+    [networkInfos.sepolia.id]: {
       url: networkInfos.sepolia.rpcUrls.default.http[0],
       chainId: networkInfos.sepolia.id,
       accounts: process.env.DEV_PRIVATE_KEY ? [process.env.DEV_PRIVATE_KEY] : [],
@@ -248,7 +248,7 @@ const config: HardhatConfig = {
   etherscan: {
     apiKey: {
       base: process.env.BASESCAN_API_KEY ?? '',
-      sepolia: process.env.ARBISCAN_API_KEY ?? '',
+      sepolia: process.env.ETHERSCAN_API_KEY ?? '',
       arbitrumSepolia: process.env.ARBISCAN_API_KEY ?? '',
       [networkInfos.berachainTestnetbArtio.id]: 'verifyContract',
       [networkInfos.berachain.id]: process.env.EXPLORER_API_KEY!,
